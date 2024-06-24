@@ -1,2 +1,44 @@
-package com.example.creditcardapi.controller;public class CreditCardController {
+package com.example.creditcardapi.controller;
+
+import com.example.creditcardapi.entity.CreditCard;
+import com.example.creditcardapi.service.CreditCardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/creditcards")
+public class CreditCardController {
+    @Autowired
+    private CreditCardService creditCardService;
+
+    @GetMapping
+    public List<CreditCard> getAllCreditCards() {
+        return creditCardService.getAllCreditCards();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CreditCard> getCreditCardById(@PathVariable Long id) {
+        CreditCard creditCard = creditCardService.getCreditCardById(id).orElseThrow(() -> new RuntimeException("Credit Card not found"));
+        return ResponseEntity.ok().body(creditCard);
+    }
+
+    @PostMapping
+    public CreditCard addCreditCard(@RequestBody CreditCard creditCard) {
+        return creditCardService.addCreditCard(creditCard);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CreditCard> updateCreditCard(@PathVariable Long id, @RequestBody CreditCard creditCardDetails) {
+        CreditCard updatedCreditCard = creditCardService.updateCreditCard(id, creditCardDetails);
+        return ResponseEntity.ok(updatedCreditCard);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
+        creditCardService.deleteCreditCard(id);
+        return ResponseEntity.noContent().build();
+    }
 }
