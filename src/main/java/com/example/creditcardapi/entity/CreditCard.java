@@ -6,17 +6,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "creditcard")
+@Table(name = "credit_card")
 @Entity
 public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "cardNumber")
+    @Column(name = "card_number")
     private String cardNumber;
-    @Column(name = "holderName")
+    @Column(name = "holder_name")
     private String holderName;
-    @Column(name = "expirationDate")
+    @Column(name = "expiration_date")
     private String expirationDate;
     @Column(name = "cvv")
     private String cvv;

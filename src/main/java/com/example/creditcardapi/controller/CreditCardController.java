@@ -1,6 +1,7 @@
 package com.example.creditcardapi.controller;
 
 import com.example.creditcardapi.entity.CreditCard;
+import com.example.creditcardapi.repository.CreditCardRepository;
 import com.example.creditcardapi.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/creditcards")
 public class CreditCardController {
+
     @Autowired
     private CreditCardService creditCardService;
 
@@ -40,5 +42,12 @@ public class CreditCardController {
     public ResponseEntity<Void> deleteCreditCard(@PathVariable Long id) {
         creditCardService.deleteCreditCard(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // endpoint si un número de tarjeta de crédito existe en la base de datos
+    @GetMapping("/validate/{cardNumber}")
+    public ResponseEntity<Boolean> validateCardNumber(@PathVariable String cardNumber) {
+        boolean exists = creditCardService.existsByCardNumber(cardNumber);
+        return ResponseEntity.ok(exists);
     }
 }

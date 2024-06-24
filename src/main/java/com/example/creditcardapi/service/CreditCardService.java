@@ -41,4 +41,8 @@ public class CreditCardService {
         CreditCard creditCard = creditCardRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarjeta de crédito no encontrada"));
         creditCardRepository.delete(creditCard);
     }
+
+    public boolean existsByCardNumber(String cardNumber) {
+        return creditCardRepository.existsByCardNumber(cardNumber);
+    }
 }
