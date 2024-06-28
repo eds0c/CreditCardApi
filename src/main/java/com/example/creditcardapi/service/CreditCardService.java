@@ -45,4 +45,9 @@ public class CreditCardService {
     public boolean existsByCardNumber(String cardNumber) {
         return creditCardRepository.existsByCardNumber(cardNumber);
     }
+
+    public boolean validateCreditCard(String cardNumber, String holderName, String expirationDate, String cvv) {
+        Optional<CreditCard> creditCardOpt = creditCardRepository.findByCardNumberAndHolderNameAndExpirationDateAndCvv(cardNumber, holderName, expirationDate, cvv);
+        return creditCardOpt.isPresent();
+    }
 }

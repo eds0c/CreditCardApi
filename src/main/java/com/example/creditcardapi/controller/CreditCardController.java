@@ -50,4 +50,15 @@ public class CreditCardController {
         boolean exists = creditCardService.existsByCardNumber(cardNumber);
         return ResponseEntity.ok(exists);
     }
+
+    // endpoint que valida si existe en la base de datos
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> validateCreditCard(
+            @RequestParam String cardNumber,
+            @RequestParam String holderName,
+            @RequestParam String expirationDate,
+            @RequestParam String cvv) {
+        boolean isValid = creditCardService.validateCreditCard(cardNumber, holderName, expirationDate, cvv);
+        return ResponseEntity.ok(isValid);
+    }
 }
